@@ -6,9 +6,9 @@ import java.sql.Date;
 
 @Data
 public class Mark{
-    private int id;
-    private int studentId;
+    private long id;
+    private long studentId;
     private int mark;
-    private int subjectId;
+    private long subjectId;
     private Date date;
 }
