@@ -4,7 +4,6 @@ services:
   database:
     image: mysql:8.0.27
     hostname: mysql
-    container_name: mysql-db
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -15,7 +14,6 @@ services:
       - "3306:3306"
   phpmyadmin:
     image: phpmyadmin
-    container_name: php-myadmin
     restart: always
     ports:
       - 8080:80

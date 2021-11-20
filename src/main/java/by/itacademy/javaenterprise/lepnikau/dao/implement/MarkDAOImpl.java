@@ -1,7 +1,7 @@
-package by.itacademy.javaenterprise.lepnikau.app.dao.implement;
+package by.itacademy.javaenterprise.lepnikau.dao.implement;
 
-import by.itacademy.javaenterprise.lepnikau.app.dao.MarkDAO;
-import by.itacademy.javaenterprise.lepnikau.app.entity.Mark;
+import by.itacademy.javaenterprise.lepnikau.dao.MarkDAO;
+import by.itacademy.javaenterprise.lepnikau.entity.Mark;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,19 +41,19 @@ public class MarkDAOImpl implements MarkDAO {
             );
             return mark;
         } catch (RuntimeException e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
         }
         return null;
     }
 
     @Override
-    public Mark get(int id) {
+    public Mark get(Long id) {
         try {
             return jdbcTemplate.queryForObject(SELECT_BY_ID,
                     new BeanPropertyRowMapper<>(Mark.class), id);
 
         } catch (RuntimeException e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
         }
         return null;
     }

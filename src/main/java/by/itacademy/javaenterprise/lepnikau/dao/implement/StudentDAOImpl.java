@@ -1,7 +1,7 @@
-package by.itacademy.javaenterprise.lepnikau.app.dao.implement;
+package by.itacademy.javaenterprise.lepnikau.dao.implement;
 
-import by.itacademy.javaenterprise.lepnikau.app.dao.StudentDAO;
-import by.itacademy.javaenterprise.lepnikau.app.entity.Student;
+import by.itacademy.javaenterprise.lepnikau.dao.StudentDAO;
+import by.itacademy.javaenterprise.lepnikau.entity.Student;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public Student get(int id) {
+    public Student get(Long id) {
         try {
             return namedJdbcTemplate.queryForObject(
                     SELECT_BY_ID,

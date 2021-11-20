@@ -1,10 +1,6 @@
-package by.itacademy.javaenterprise.lepnikau.app.config;
+package by.itacademy.javaenterprise.lepnikau.config;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,7 +12,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan("by.itacademy.javaenterprise.lepnikau.app")
+@ComponentScan("by.itacademy.javaenterprise.lepnikau")
 @PropertySource("classpath:db.properties")
 public class SchoolDiaryConfig {
 
