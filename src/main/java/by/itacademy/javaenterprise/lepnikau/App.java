@@ -2,22 +2,25 @@ package by.itacademy.javaenterprise.lepnikau;
 
 import by.itacademy.javaenterprise.lepnikau.config.SchoolDiaryConfig;
 import by.itacademy.javaenterprise.lepnikau.dao.implement.ParentDAOImpl;
-import by.itacademy.javaenterprise.lepnikau.entity.Parent;
+import by.itacademy.javaenterprise.lepnikau.dao.implement.StudentDAOImpl;
+import by.itacademy.javaenterprise.lepnikau.entity.Student;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class App {
+    private static final Logger LOG = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(SchoolDiaryConfig.class);
-        ParentDAOImpl parentDAO = context.getBean(ParentDAOImpl.class);
+        StudentDAOImpl studentDAO = context.getBean(StudentDAOImpl.class);
 
-        Parent parent = new Parent();
-        parent.setStudentId(-1L);
-        parent.setLastName("test");
-        parent.setFirstName("test");
-        parent.setPatronymic("test");
-
-        parentDAO.save(parent);
+        Student student = studentDAO.get(100L);
+        if (student == null) {
+            LOG.info("null");
+        } else {
+            LOG.info(student.toString());
+        }
     }
 }

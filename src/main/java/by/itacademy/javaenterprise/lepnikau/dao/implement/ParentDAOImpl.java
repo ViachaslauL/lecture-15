@@ -66,7 +66,7 @@ public class ParentDAOImpl implements ParentDAO {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 parent = new Parent();
                 parent.setId(resultSet.getLong("id"));
                 parent.setStudentId(resultSet.getLong("student_id"));
@@ -75,7 +75,7 @@ public class ParentDAOImpl implements ParentDAO {
                 parent.setPatronymic(resultSet.getString("patronymic"));
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
         }
         return parent;
     }
@@ -92,6 +92,7 @@ public class ParentDAOImpl implements ParentDAO {
             preparedStatement.setInt(2, offset);
 
             ResultSet resultSet = preparedStatement.executeQuery();
+
             while (resultSet.next()) {
                 Parent parent = new Parent();
                 parent.setId(resultSet.getLong("id"));
@@ -102,7 +103,7 @@ public class ParentDAOImpl implements ParentDAO {
                 parents.add(parent);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
         }
         return parents;
     }

@@ -133,7 +133,7 @@
                         <user>admin</user>
                         <password>adminPass</password>
                         <locations>
-                            <location>classpath:db/migration</location>
+                            <location>classpath:db/migrate</location>
                         </locations>
                     </configuration>
                 </plugin>

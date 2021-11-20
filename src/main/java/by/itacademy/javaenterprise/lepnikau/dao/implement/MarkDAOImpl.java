@@ -32,14 +32,16 @@ public class MarkDAOImpl implements MarkDAO {
 
     @Override
     public Mark save(Mark mark) {
+        if (mark == null) throw new IllegalArgumentException();
+
         try {
-            jdbcTemplate.update(INSERT_INTO,
+            int update = jdbcTemplate.update(INSERT_INTO,
                     mark.getStudentId(),
                     mark.getMark(),
                     mark.getSubjectId(),
                     mark.getDate()
             );
-            return mark;
+            if (update > 0) return mark;
         } catch (RuntimeException e) {
             logger.error(e.getMessage(), e);
         }
@@ -65,7 +67,7 @@ public class MarkDAOImpl implements MarkDAO {
             return jdbcTemplate.query(SELECT_ALL,
                     new BeanPropertyRowMapper<>(Mark.class), pageSize, offset);
         } catch (RuntimeException e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
         }
         return new ArrayList<>();
     }

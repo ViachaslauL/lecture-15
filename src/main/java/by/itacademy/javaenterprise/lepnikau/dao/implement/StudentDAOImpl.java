@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -33,32 +34,35 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public Student save(Student student) {
+        if (student == null) throw new IllegalArgumentException();
+
         try {
-            namedJdbcTemplate.update(INSERT_INTO, new MapSqlParameterSource()
+            int update = namedJdbcTemplate.update(INSERT_INTO, new MapSqlParameterSource()
                     .addValue("lastName", student.getLastName())
                     .addValue("firstName", student.getFirstName())
                     .addValue("patronymic", student.getPatronymic())
                     .addValue("classId", student.getClassId())
             );
-            return student;
+            if (update > 0) return student;
         } catch (RuntimeException e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
         }
         return null;
     }
 
     @Override
     public Student get(Long id) {
+        if (id == null || id <= 0) throw new IllegalArgumentException();
+
         try {
-            return namedJdbcTemplate.queryForObject(
-                    SELECT_BY_ID,
-                    new MapSqlParameterSource().addValue("id", id),
+            return namedJdbcTemplate.queryForObject(SELECT_BY_ID,
+                    Collections.singletonMap("id", id),
                     new BeanPropertyRowMapper<>(Student.class)
             );
         } catch (RuntimeException e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -71,8 +75,8 @@ public class StudentDAOImpl implements StudentDAO {
                             .addValue("offset", offset),
                     new BeanPropertyRowMapper<>(Student.class));
         } catch (RuntimeException e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
+            return new ArrayList<>();
         }
-        return new ArrayList<>();
     }
 }
